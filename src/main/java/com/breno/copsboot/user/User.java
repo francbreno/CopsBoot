@@ -1,23 +1,21 @@
 package com.breno.copsboot.user;
 
 import java.util.Set;
-import java.util.UUID;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.breno.copsboot.orm.jpa.AbstractEntity;
+
 @Entity
 @Table(name = "copsboot_user")
-public class User {
+public class User extends AbstractEntity<UserId> {
 	
-	@Id
-	private UUID id;
 	private String email;
 	private String password;
 	
@@ -30,16 +28,11 @@ public class User {
 		super();
 	}
 
-	public User(UUID id, String email, String password, Set<UserRole> roles) {
-		super();
-		this.id = id;
+	public User(UserId id, String email, String password, Set<UserRole> roles) {
+		super(id);
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
-	}
-
-	public UUID getId() {
-		return id;
 	}
 
 	public String getEmail() {
