@@ -26,8 +26,8 @@ public class UserRepositoryTest {
 		HashSet<UserRole> roles = new HashSet<>();
 		roles.add(UserRole.OFFICER);
 		// When
-		User user = repository.save(
-				new User(UUID.randomUUID(),
+		User user = repository.save(new User(
+				repository.nextId(),
 				"alex.foley@beverly-hills.com",
 				"my-secret-pws",
 				roles));

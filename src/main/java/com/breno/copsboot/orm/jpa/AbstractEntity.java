@@ -9,7 +9,7 @@ import com.breno.copsboot.util.ArtifactForFramework;
 
 /**
  * Abstract super class for entities. We are assuming that early primary key
- * generation will be user.
+ * generation will be used.
  * 
  * @author breno
  *
