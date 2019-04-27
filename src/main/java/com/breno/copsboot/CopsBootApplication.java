@@ -1,5 +1,7 @@
 package com.breno.copsboot;
 
+import java.util.UUID;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +17,7 @@ public class CopsBootApplication {
 	}
 
 	@Bean
-	public UniqueIdGenerator uniqueIdGenerator() {
+	public UniqueIdGenerator<UUID> uniqueIdGenerator() {
 		return new InMemoryUniqueIdGenerator();
 	}
 }

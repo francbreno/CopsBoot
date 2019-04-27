@@ -16,7 +16,7 @@ import com.breno.copsboot.util.ArtifactForFramework;
  * @param <T> the type of {@link EntityId} that will be used for this entity
  */
 @MappedSuperclass
-public class AbstractEntity<T extends EntityId> implements Entity<T> {
+public abstract class AbstractEntity<T extends EntityId> implements Entity<T> {
 
 	@EmbeddedId
 	private T id;

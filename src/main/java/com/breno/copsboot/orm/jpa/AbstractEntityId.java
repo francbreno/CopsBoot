@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass;
 import com.breno.copsboot.util.ArtifactForFramework;
 
 @MappedSuperclass
-public class AbstractEntityId<T extends Serializable> implements Serializable, EntityId<T> {
+public abstract class AbstractEntityId<T extends Serializable> implements Serializable, EntityId<T> {
 	private static final long serialVersionUID = 1L;
 
 	private T id;
