@@ -4,16 +4,31 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.breno.copsboot.orm.jpa.InMemoryUniqueIdGenerator;
+import com.breno.copsboot.orm.jpa.UniqueIdGenerator;
 
 @RunWith(SpringRunner.class) // enable testing support of spring boot
 @DataJpaTest // starts only the parts of the app related to JPA (test slicing)
 public class UserRepositoryTest {
+	
+	@TestConfiguration
+	static class TestConfig {
+		
+		@Bean
+		public UniqueIdGenerator<UUID> generator() {
+			return new InMemoryUniqueIdGenerator();
+		}
+	}
 
 	// Inside tests is not possible to define
 	// injection with constructor
