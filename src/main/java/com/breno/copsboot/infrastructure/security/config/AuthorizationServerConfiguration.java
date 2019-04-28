@@ -1,6 +1,9 @@
-package com.breno.copsboot;
+package com.breno.copsboot.infrastructure.security.config;
+
+import static com.breno.copsboot.infrastructure.security.config.ResourceServerConfiguration.RESOURCE_ID;
 
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,13 +36,17 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	// What Spring will use to store the generated access tokens.
 	private TokenStore tokenStore;
 	
+	private SecurityConfiguration securityConfiguration;
+	
 	protected AuthorizationServerConfiguration(AuthenticationManager authenticationManager,
-			UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, TokenStore tokenStore) {
+			UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, TokenStore tokenStore,
+			SecurityConfiguration securityConfiguration) {
 		super();
 		this.authenticationManager = authenticationManager;
 		this.userDetailsService = userDetailsService;
 		this.passwordEncoder = passwordEncoder;
 		this.tokenStore = tokenStore;
+		this.securityConfiguration = securityConfiguration;
 	}
 	
 	/**
@@ -54,11 +61,14 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	 */
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory() // tutorial purposes only
-			   .withClient("copsboot-mobile-client") // hardcoded client ID
+//			   .withClient("copsboot-mobile-client") // hardcoded client ID
+			   .withClient(securityConfiguration.getMobileAppClientId())
 			   .authorizedGrantTypes("password", "refreshtoken")
 			   .scopes("mobile_app")
 			   .resourceIds(RESOURCE_ID)
-			   .secret(passwordEncoder.encode("sadk!@lsadkjl4350&#aoji"));
+//			   .secret(passwordEncoder.encode("abc123"));
+			   .secret(passwordEncoder.encode(
+					   securityConfiguration.getMobileAppClientSecret()));
 	}
 	
 	/**

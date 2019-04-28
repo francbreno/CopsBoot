@@ -1,4 +1,4 @@
-package com.breno.copsboot;
+package com.breno.copsboot.infrastructure.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,6 +13,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
+	public static final String RESOURCE_ID = "copsboot";
+	
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		resources.resourceId(RESOURCE_ID);
 	}
