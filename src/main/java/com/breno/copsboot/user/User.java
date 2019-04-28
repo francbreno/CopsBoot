@@ -1,5 +1,6 @@
 package com.breno.copsboot.user;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.persistence.ElementCollection;
@@ -34,6 +35,14 @@ public class User extends AbstractEntity<UserId> {
 		this.password = password;
 		this.roles = roles;
 	}
+	
+	public static User createCaptain(UserId userId, String email, String password) {
+        return new User(userId, email, password, Collections.singleton(UserRole.CAPTAIN));
+    }
+
+    public static User createOfficer(UserId userId, String email, String password) {
+        return new User(userId, email, password, Collections.singleton(UserRole.OFFICER));
+    }
 
 	public String getEmail() {
 		return email;

@@ -3,7 +3,7 @@ package com.breno.copsboot.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashSet;
-import java.util.UUID;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,4 +36,36 @@ public class UserRepositoryTest {
 		assertThat(repository.count()).isEqualTo(1L);
 	}
 
+	@Test
+	public void testFindByEmail() {
+		// Given
+		User user = Users.newRandomOfficer();
+		repository.save(user);
+		// When
+		Optional<User> optional = repository.findByEmailIgnoreCase(user.getEmail());
+		// Then
+		assertThat(optional).isNotEmpty().contains(user);
+	}
+	
+	@Test
+	public void testFindByEmailIgnoringCase() {
+		// Given
+		User user = Users.newRandomOfficer();
+		repository.save(user);
+		// When
+		Optional<User> optional = repository.findByEmailIgnoreCase(user.getEmail().toUpperCase());
+		// Then
+		assertThat(optional).isNotEmpty().contains(user);
+	}
+	
+	@Test
+	public void testFinByEmail_unknownEMail() {
+		// Given
+		User user = Users.newRandomOfficer();
+		repository.save(user);
+		// When
+		Optional<User> optional = repository.findByEmailIgnoreCase("will.not@find.me");
+		// Then
+		assertThat(optional).isEmpty();
+	}
 }
