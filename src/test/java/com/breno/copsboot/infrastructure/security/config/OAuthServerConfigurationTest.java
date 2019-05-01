@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +31,6 @@ import com.breno.copsboot.user.Users;
 @ActiveProfiles(SpringProfiles.TEST)
 public class OAuthServerConfigurationTest {
 
-	/**
-	 * 
-	 */
 	@Autowired
 	private MockMvc mvc;
 	
@@ -47,6 +47,7 @@ public class OAuthServerConfigurationTest {
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "password");
+		params.add("grant_type", "refreshtoken");
 		params.add("client_id", clientId);
 		params.add("client_secret", clientSecret);
 		params.add("username", Users.OFFICER_EMAIL);

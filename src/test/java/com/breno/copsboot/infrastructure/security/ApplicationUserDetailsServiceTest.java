@@ -35,7 +35,7 @@ public class ApplicationUserDetailsServiceTest {
 				ApplicationUserDetails.class,
 				applicationUserDetails -> {
 					assertThat(applicationUserDetails.getUserId())
-						.isEqualTo(Users.newRandomOfficer().getId());
+						.isEqualTo(Users.officer().getId());
 				});
 	}
 

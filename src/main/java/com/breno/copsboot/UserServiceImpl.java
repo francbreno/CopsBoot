@@ -1,9 +1,12 @@
 package com.breno.copsboot;
 
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.breno.copsboot.user.User;
+import com.breno.copsboot.user.UserId;
 import com.breno.copsboot.user.UserRepository;
 import com.breno.copsboot.user.UserService;
 
@@ -25,6 +28,11 @@ public class UserServiceImpl implements UserService {
 				email,
 				passwordEncoder.encode(password));
 		return repository.save(user);
+	}
+
+	@Override
+	public Optional<User> getUser(UserId userId) {
+		return repository.findById(userId.getId());
 	}
 
 }

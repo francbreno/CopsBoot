@@ -19,13 +19,15 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 		resources.resourceId(RESOURCE_ID);
 	}
 	
-	public void confifure(HttpSecurity http) throws Exception {
+	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			// OPTIONS request are allowed to anyone on any sub-path, allowing
 			// "preflight requests".
 			.antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
 			.and()
-			.antMatcher("/api/**").authorizeRequests()
+			.antMatcher("/api/**")
+			.authorizeRequests() // restrict access of all requests to /api/**
+			.antMatchers(HttpMethod.POST, "/api/users").permitAll() // remove restriction to POST requests on /api/users
 			.anyRequest().authenticated(); // any request must be authenticated
 	}
 }
